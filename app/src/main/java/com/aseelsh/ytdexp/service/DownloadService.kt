@@ -1,15 +1,26 @@
 package com.aseelsh.ytdexp.service
 
-import android.app.*
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.Service
 import android.content.Intent
-import android.os.*
+import android.os.Build
+import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.aseelsh.ytdexp.R
 import com.aseelsh.ytdexp.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
-import okhttp3.*
-import java.io.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,14 +44,14 @@ class DownloadService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val url = intent?.getStringExtra("url") ?: return START_NOT_STICKY
         val fileName = intent.getStringExtra("fileName") ?: "download"
-        
+
         val notification = createNotification(fileName, 0)
         startForeground(NOTIFICATION_ID, notification)
-        
+
         serviceScope.launch {
             downloadFile(url, fileName)
         }
-        
+
         return START_STICKY
     }
 
@@ -51,7 +62,7 @@ class DownloadService : Service() {
             val channel = NotificationChannel(
                 NOTIFICATION_CHANNEL_ID,
                 "Downloads",
-                NotificationManager.IMPORTANCE_LOW
+                NotificationManager.IMPORTANCE_LOW,
             ).apply {
                 description = "Used for showing active downloads"
             }
@@ -62,8 +73,10 @@ class DownloadService : Service() {
     private fun createNotification(fileName: String, progress: Int): Notification {
         val intent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
-            this, 0, intent,
-            PendingIntent.FLAG_IMMUTABLE
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE,
         )
 
         return NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
@@ -77,7 +90,8 @@ class DownloadService : Service() {
 
     private suspend fun downloadFile(url: String, fileName: String) {
         try {
-            val request = Request.Builder().url(url)
+            val request = Request.Builder()
+                .url(url)
                 .header("Range", "bytes=0-")
                 .build()
 
@@ -122,5 +136,4 @@ class DownloadService : Service() {
         super.onDestroy()
         serviceScope.cancel()
     }
-}
 }
