@@ -5,7 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch:  # يسمح بتشغيل الـ workflow يدوياً من واجهة GitHub
+  workflow_dispatch:
 
 jobs:
   build:
@@ -13,36 +13,44 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch all history for better versioning
+          fetch-depth: 0
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
-          
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+
+      # Cache Gradle Wrapper
+      - name: Cache Gradle Wrapper
+        uses: actions/cache@v4
         with:
-          gradle-home-cache-cleanup: true
-          
-      - name: Cache Gradle packages
-        uses: actions/cache@v3
+          path: ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle-wrapper.properties') }}
+
+      # Cache Gradle Dependencies
+      - name: Cache Gradle Dependencies
+        uses: actions/cache@v4
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            ~/.android/build-cache
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-deps-${{ hashFiles('**/*.gradle*', '**/gradle.properties') }}
           restore-keys: |
-            ${{ runner.os }}-gradle-
+            ${{ runner.os }}-gradle-deps-
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      # Code Quality Checks
       - name: Run ktlint
         run: ./gradlew ktlintCheck
 
+      - name: Run Android Lint
+        run: ./gradlew lintDebug
+
+      - name: Run Detekt
+        run: ./gradlew detekt || true
+
+      # Build Debug APK
       - name: Build Debug APK
         run: ./gradlew assembleDebug --parallel --daemon --build-cache
 
@@ -50,7 +58,7 @@ jobs:
         run: ./gradlew test --parallel
 
       - name: Upload Debug APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
@@ -70,22 +78,23 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+      # Cache Gradle Wrapper
+      - name: Cache Gradle Wrapper
+        uses: actions/cache@v4
         with:
-          gradle-home-cache-cleanup: true
-          
-      - name: Cache Gradle packages
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            ~/.android/build-cache
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+          path: ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle-wrapper.properties') }}
 
+      # Cache Gradle Dependencies
+      - name: Cache Gradle Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-deps-${{ hashFiles('**/*.gradle*', '**/gradle.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-deps-
+
+      # Decode Keystore
       - name: Decode Keystore
         env:
           ENCODED_KEYSTORE: ${{ secrets.KEYSTORE_BASE64 }}
@@ -94,6 +103,7 @@ jobs:
             echo $ENCODED_KEYSTORE | base64 --decode > app/release.keystore
           fi
 
+      # Build Release APK (with signing)
       - name: Build Release APK
         env:
           KEYSTORE_FILE: release.keystore
@@ -102,6 +112,7 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: ./gradlew assembleRelease
 
+      # Generate Release Notes
       - name: Generate Release Notes
         id: release_notes
         run: |
@@ -110,6 +121,7 @@ jobs:
           echo "* Commit: ${{ github.sha }}" >> release_notes.md
           echo "* Build date: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> release_notes.md
 
+      # Create GitHub Release
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
@@ -117,13 +129,12 @@ jobs:
           tag_name: v${{ github.run_number }}
           name: Release v${{ github.run_number }}
           body_path: release_notes.md
-          draft: false
-          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Upload Release Artifacts
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: release-artifacts
           path: |
