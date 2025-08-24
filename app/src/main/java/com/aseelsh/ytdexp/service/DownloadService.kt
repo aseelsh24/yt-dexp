@@ -105,19 +105,19 @@ class DownloadService : Service() {
                     body.byteStream().use { input ->
                         val buffer = ByteArray(BUFFER_SIZE)
                         var bytes = input.read(buffer)
-                        
+
                         while (bytes >= 0) {
                             output.write(buffer, 0, bytes)
                             downloadedBytes += bytes
-                            
+
                             val progress = ((downloadedBytes * 100) / contentLength).toInt()
                             updateNotification(fileName, progress)
-                            
+
                             bytes = input.read(buffer)
                         }
                     }
                 }
-                
+
                 stopForeground(true)
                 stopSelf()
             }
