@@ -8,7 +8,7 @@ data class DownloadItem(
     val format: String,
     val size: Long,
     val progress: Int = 0,
-    val status: DownloadStatus = DownloadStatus.PENDING
+    val status: DownloadStatus = DownloadStatus.PENDING,
 )
 
 enum class DownloadStatus {
@@ -16,5 +16,5 @@ enum class DownloadStatus {
     DOWNLOADING,
     PAUSED,
     COMPLETED,
-    FAILED
+    FAILED,
 }
