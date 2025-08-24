@@ -4,7 +4,6 @@ buildscript {
         compose_version = '1.4.3'
         room_version = '2.5.2'
         hilt_version = '2.47'
-        ktlint_version = '11.5.1'
     }
     repositories {
         google()
@@ -18,7 +17,7 @@ buildscript {
 }
 
 plugins {
-    id "org.jlleitschuh.gradle.ktlint" version "11.5.1" apply false
+    id "org.jmailen.kotlinter" version "3.15.0" apply false
 }
 
 allprojects {
@@ -26,16 +25,6 @@ allprojects {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
-    }
-
-    apply plugin: "org.jlleitschuh.gradle.ktlint"
-
-    ktlint {
-        android = true
-        verbose = true
-        filter {
-            exclude { element -> element.file.path.contains("generated/") }
-        }
     }
 }
 

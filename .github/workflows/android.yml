@@ -41,8 +41,8 @@ jobs:
         run: chmod +x gradlew
 
       # Code Quality Checks
-      - name: Run ktlint
-        run: ./gradlew ktlintCheck
+      - name: Run Kotlin Linter
+        run: ./gradlew lintKotlin
 
       - name: Run Android Lint
         run: ./gradlew lintDebug
