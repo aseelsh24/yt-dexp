@@ -42,7 +42,7 @@ jobs:
 
       # Code Quality Checks
       - name: Run ktlint
-        run: ./gradlew ktlintCheck
+        run: ./gradlew lintKotlin
 
       - name: Run Android Lint
         run: ./gradlew lintDebug

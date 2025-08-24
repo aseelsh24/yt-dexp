@@ -1,19 +1,15 @@
 package com.aseelsh.ytdexp.data.extractor
 
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 import java.util.regex.Pattern
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.coroutines.resume
 
 @Singleton
 class VideoExtractor @Inject constructor(
-    private val okHttpClient: OkHttpClient
+    private val okHttpClient: OkHttpClient,
 ) {
     suspend fun extractVideoInfo(url: String): VideoInfo {
         return when {
@@ -31,7 +27,7 @@ class VideoExtractor @Inject constructor(
 
     private fun extractYouTubeVideoId(url: String): String {
         val pattern = Pattern.compile(
-            "(?<=watch\\?v=|/videos/|embed/|youtu.be/|/v/|/e/|watch\\?v%3D|watch\\?feature=player_embedded&v=)[^#&?\\n]*"
+            "(?<=watch\\?v=|/videos/|embed/|youtu.be/|/v/|/e/|watch\\?v%3D|watch\\?feature=player_embedded&v=)[^#&?\\n]*",
         )
         val matcher = pattern.matcher(url)
         if (matcher.find()) {
@@ -50,7 +46,7 @@ class VideoExtractor @Inject constructor(
 
         val playerResponsePattern = Pattern.compile("ytInitialPlayerResponse\\s*=\\s*(\\{.+?\\})\\s*;")
         val matcher = playerResponsePattern.matcher(html)
-        
+
         if (matcher.find()) {
             return JSONObject(matcher.group(1))
         }
@@ -78,15 +74,15 @@ class VideoExtractor @Inject constructor(
                     url = format.getString("url"),
                     mimeType = format.getString("mimeType"),
                     quality = format.optString("quality", ""),
-                    bitrate = format.optLong("bitrate", 0)
-                )
+                    bitrate = format.optLong("bitrate", 0),
+                ),
             )
         }
 
         return VideoInfo(
             title = title,
             thumbnail = thumbnail,
-            formats = formats
+            formats = formats,
         )
     }
 
@@ -98,12 +94,12 @@ class VideoExtractor @Inject constructor(
 data class VideoInfo(
     val title: String,
     val thumbnail: String,
-    val formats: List<VideoFormat>
+    val formats: List<VideoFormat>,
 )
 
 data class VideoFormat(
     val url: String,
     val mimeType: String,
     val quality: String,
-    val bitrate: Long
+    val bitrate: Long,
 )

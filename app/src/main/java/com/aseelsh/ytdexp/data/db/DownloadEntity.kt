@@ -15,5 +15,5 @@ data class DownloadEntity(
     val progress: Int,
     val status: String,
     val timestamp: Long = System.currentTimeMillis(),
-    val filePath: String? = null
+    val filePath: String? = null,
 )
