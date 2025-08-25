@@ -25,14 +25,18 @@ jobs:
       - name: Cache Gradle Wrapper
         uses: actions/cache@v4
         with:
-          path: ~/.gradle/wrapper
+          path: |
+            ~/.gradle/wrapper
+            .gradle/wrapper
           key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle-wrapper.properties') }}
 
       # Cache Gradle Dependencies
       - name: Cache Gradle Dependencies
         uses: actions/cache@v4
         with:
-          path: ~/.gradle/caches
+          path: |
+            ~/.gradle/caches
+            .gradle/caches
           key: ${{ runner.os }}-gradle-deps-${{ hashFiles('**/*.gradle*', '**/gradle.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-deps-
@@ -77,6 +81,39 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      # Cache Gradle Wrapper
+      - name: Cache Gradle Wrapper
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/wrapper
+            .gradle/wrapper
+          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle-wrapper.properties') }}
+
+      # Cache Gradle Dependencies
+      - name: Cache Gradle Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            .gradle/caches
+          key: ${{ runner.os }}-gradle-deps-${{ hashFiles('**/*.gradle*', '**/gradle.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-deps-
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # Build Release APK
+      - name: Build Release APK
+        run: ./gradlew assembleRelease --parallel --daemon --build-cache
+
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: app/build/outputs/apk/release/app-release.apk
 
       # Cache Gradle Wrapper
       - name: Cache Gradle Wrapper
