@@ -135,7 +135,7 @@ class DownloadService : Service() {
             output.write(buffer, 0, bytes)
             downloadedBytes += bytes
 
-            val progress = ((downloadedBytes * 100) / contentLength).toInt()
+            val progress = ((downloadedBytes * MAX_PROGRESS) / contentLength).toInt()
             updateNotification(fileName, progress)
 
             bytes = input.read(buffer)

@@ -102,7 +102,7 @@ dependencies {
     implementation 'com.google.accompanist:accompanist-webview:0.32.0'
 
     // FFmpeg for audio extraction
-    implementation 'com.arthenica:mobile-ffmpeg-full:4.4.LTS'
+    implementation 'com.arthenica:mobile-ffmpeg-full:4.4'
 
     // Media handling (using Media3 instead of ExoPlayer)
     implementation 'androidx.media3:media3-exoplayer:1.1.1'
@@ -128,3 +128,7 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 }
+
+    detekt {
+        config = files("$rootDir/detekt.yml")
+    }
