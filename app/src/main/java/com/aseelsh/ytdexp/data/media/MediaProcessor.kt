@@ -2,8 +2,7 @@ package com.aseelsh.ytdexp.data.media
 
 import android.content.Context
 import android.util.Log
-import com.arthenica.mobileffmpeg.Config
-import com.arthenica.mobileffmpeg.FFmpeg
+import com.infullmobile.android.videokit.VideoKit
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,118 +13,77 @@ import javax.inject.Singleton
 
 @Singleton
 class MediaProcessor
-    @Inject
-    constructor(
-        @ApplicationContext private val context: Context,
-    ) {
-        suspend fun extractAudio(
-            inputPath: String,
-            outputFileName: String,
-            onProgress: (Int) -> Unit,
-        ): Result<File> =
-            withContext(Dispatchers.IO) {
-                try {
-                    val outputDir = context.getExternalFilesDir(null)
-                    val outputPath = File(outputDir, outputFileName).absolutePath
+@Inject
+constructor(
+    @ApplicationContext private val context: Context,
+) {
+    suspend fun extractAudio(
+        inputPath: String,
+        outputFileName: String,
+        onProgress: (Int) -> Unit, // Note: Progress reporting is not supported by VideoKit
+    ): Result<File> =
+        withContext(Dispatchers.IO) {
+            try {
+                val outputDir = context.getExternalFilesDir(null)
+                val outputPath = File(outputDir, outputFileName).absolutePath
 
-                    Config.enableStatisticsCallback { statistics ->
-                        val timeInMilliseconds = statistics.time
-                        val duration = statistics.duration
-                        if (duration > 0) {
-                            val progress = (timeInMilliseconds * MAX_PROGRESS / duration).toInt()
-                            onProgress(progress)
-                        }
-                    }
+                // VideoKit does not have a direct equivalent for progress callbacks.
+                // We will call onProgress with 0 and 100 to indicate start and end.
+                onProgress(0)
 
-                    val command =
-                        arrayOf(
-                            "-i",
-                            inputPath,
-                            "-vn",
-                            "-acodec",
-                            "libmp3lame",
-                            "-ab",
-                            "192k",
-                            "-ar",
-                            "44100",
-                            outputPath,
-                        )
+                val command = VideoKit().createCommand()
+                    .inputPath(inputPath)
+                    .outputPath(outputPath)
+                    .customCommand("-vn -acodec libmp3lame -ab 192k -ar 44100")
+                    .build()
 
-                    val result = FFmpeg.execute(command)
+                command.execute()
 
-                    if (result == Config.RETURN_CODE_SUCCESS) {
-                        Result.success(File(outputPath))
-                    } else {
-                        Result.failure(IOException("FFmpeg process failed with code $result"))
-                    }
-                } catch (e: IOException) {
-                    Log.e(TAG, "Audio extraction failed", e)
-                    Result.failure(e)
-                }
+                onProgress(MAX_PROGRESS)
+                Result.success(File(outputPath))
+            } catch (e: Exception) {
+                Log.e(TAG, "Audio extraction failed", e)
+                Result.failure(IOException("FFmpeg process failed", e))
             }
-
-        suspend fun convertVideo(
-            inputPath: String,
-            outputFileName: String,
-            format: String,
-            onProgress: (Int) -> Unit,
-        ): Result<File> =
-            withContext(Dispatchers.IO) {
-                try {
-                    val outputDir = context.getExternalFilesDir(null)
-                    val outputPath = File(outputDir, outputFileName).absolutePath
-
-                    Config.enableStatisticsCallback { statistics ->
-                        val timeInMilliseconds = statistics.time
-                        val duration = statistics.duration
-                        if (duration > 0) {
-                            val progress = (timeInMilliseconds * MAX_PROGRESS / duration).toInt()
-                            onProgress(progress)
-                        }
-                    }
-
-                    val command =
-                        when (format.lowercase()) {
-                            "mp4" ->
-                                arrayOf(
-                                    "-i",
-                                    inputPath,
-                                    "-c:v",
-                                    "libx264",
-                                    "-c:a",
-                                    "aac",
-                                    "-strict",
-                                    "experimental",
-                                    outputPath,
-                                )
-                            "webm" ->
-                                arrayOf(
-                                    "-i",
-                                    inputPath,
-                                    "-c:v",
-                                    "libvpx-vp9",
-                                    "-c:a",
-                                    "libopus",
-                                    outputPath,
-                                )
-                            else -> throw IllegalArgumentException("Unsupported format: $format")
-                        }
-
-                    val result = FFmpeg.execute(command)
-
-                    if (result == Config.RETURN_CODE_SUCCESS) {
-                        Result.success(File(outputPath))
-                    } else {
-                        Result.failure(IOException("FFmpeg process failed with code $result"))
-                    }
-                } catch (e: IOException) {
-                    Log.e(TAG, "Video conversion failed", e)
-                    Result.failure(e)
-                }
-            }
-
-        companion object {
-            private const val TAG = "MediaProcessor"
-            private const val MAX_PROGRESS = 100
         }
+
+    suspend fun convertVideo(
+        inputPath: String,
+        outputFileName: String,
+        format: String,
+        onProgress: (Int) -> Unit, // Note: Progress reporting is not supported by VideoKit
+    ): Result<File> =
+        withContext(Dispatchers.IO) {
+            try {
+                val outputDir = context.getExternalFilesDir(null)
+                val outputPath = File(outputDir, outputFileName).absolutePath
+
+                onProgress(0)
+
+                val customCommand = when (format.lowercase()) {
+                    "mp4" -> "-c:v libx264 -c:a aac -strict experimental"
+                    "webm" -> "-c:v libvpx-vp9 -c:a libopus"
+                    else -> throw IllegalArgumentException("Unsupported format: $format")
+                }
+
+                val command = VideoKit().createCommand()
+                    .inputPath(inputPath)
+                    .outputPath(outputPath)
+                    .customCommand(customCommand)
+                    .build()
+
+                command.execute()
+
+                onProgress(MAX_PROGRESS)
+                Result.success(File(outputPath))
+            } catch (e: Exception) {
+                Log.e(TAG, "Video conversion failed", e)
+                Result.failure(IOException("FFmpeg process failed", e))
+            }
+        }
+
+    companion object {
+        private const val TAG = "MediaProcessor"
+        private const val MAX_PROGRESS = 100
     }
+}
