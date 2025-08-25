@@ -40,6 +40,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      # Clean before build
+      - name: Clean project
+        run: ./gradlew clean
+
       # Code Quality Checks
       - name: Run ktlint (code style)
         run: ./gradlew ktlintCheck || echo "ktlint not configured"
@@ -94,159 +98,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-deps-
 
-      # Decode Keystore
-      - name: Decode Keystore
-        env:
-          ENCODED_KEYSTORE: ${{ secrets.KEYSTORE_BASE64 }}
-        run: |
-          if [ -n "$ENCODED_KEYSTORE" ]; then
-            echo $ENCODED_KEYSTORE | base64 --decode > app/release.keystore
-          fi
-
-      # Build Release APK (with signing)
-      - name: Build Release APK
-        env:
-          KEYSTORE_FILE: release.keystore
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew assembleRelease
-
-      # Generate Release Notes
-      - name: Generate Release Notes
-        id: release_notes
-        run: |
-          echo "### What's New" >> release_notes.md
-          echo "* Build number: ${{ github.run_number }}" >> release_notes.md
-          echo "* Commit: ${{ github.sha }}" >> release_notes.md
-          echo "* Build date: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> release_notes.md
-
-      # Create GitHub Release
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: app/build/outputs/apk/release/app-release.apk
-          tag_name: v${{ github.run_number }}
-          name: Release v${{ github.run_number }}
-          body_path: release_notes.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # Upload Release Artifacts
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-artifacts
-          path: |
-            app/build/outputs/apk/release/app-release.apk
-            app/build/outputs/mapping/release/mapping.txt
-          retention-days: 30  release:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      # Cache Gradle Wrapper
-      - name: Cache Gradle Wrapper
-        uses: actions/cache@v4
-        with:
-          path: ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle-wrapper.properties') }}
-
-      # Cache Gradle Dependencies
-      - name: Cache Gradle Dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-deps-${{ hashFiles('**/*.gradle*', '**/gradle.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-deps-
-
-      # Decode Keystore
-      - name: Decode Keystore
-        env:
-          ENCODED_KEYSTORE: ${{ secrets.KEYSTORE_BASE64 }}
-        run: |
-          if [ -n "$ENCODED_KEYSTORE" ]; then
-            echo $ENCODED_KEYSTORE | base64 --decode > app/release.keystore
-          fi
-
-      # Build Release APK (with signing)
-      - name: Build Release APK
-        env:
-          KEYSTORE_FILE: release.keystore
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew assembleRelease
-
-      # Generate Release Notes
-      - name: Generate Release Notes
-        id: release_notes
-        run: |
-          echo "### What's New" >> release_notes.md
-          echo "* Build number: ${{ github.run_number }}" >> release_notes.md
-          echo "* Commit: ${{ github.sha }}" >> release_notes.md
-          echo "* Build date: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> release_notes.md
-
-      # Create GitHub Release
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: app/build/outputs/apk/release/app-release.apk
-          tag_name: v${{ github.run_number }}
-          name: Release v${{ github.run_number }}
-          body_path: release_notes.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # Upload Release Artifacts
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-artifacts
-          path: |
-            app/build/outputs/apk/release/app-release.apk
-            app/build/outputs/mapping/release/mapping.txt
-          retention-days: 30  release:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      # Cache Gradle Wrapper
-      - name: Cache Gradle Wrapper
-        uses: actions/cache@v4
-        with:
-          path: ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle-wrapper.properties') }}
-
-      # Cache Gradle Dependencies
-      - name: Cache Gradle Dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-deps-${{ hashFiles('**/*.gradle*', '**/gradle.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-deps-
+      # Clean before release build
+      - name: Clean project
+        run: ./gradlew clean
 
       # Decode Keystore
       - name: Decode Keystore
