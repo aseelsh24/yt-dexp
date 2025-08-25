@@ -107,34 +107,11 @@ class DownloadService : Service() {
                 val body = response.body ?: throw IOException("No response body")
                 val contentLength = body.contentLength()
                 val file = File(getExternalFilesDir(null), fileName)
-<<<<<<< HEAD
-                FileOutputStream(file).use { output ->
-                    body.byteStream().use { input ->
-                        val buffer = ByteArray(BUFFER_SIZE)
-                        var bytes = input.read(buffer)
-
-                        while (bytes >= 0) {
-                            output.write(buffer, 0, bytes)
-                            downloadedBytes += bytes
-
-                            val progress = ((downloadedBytes * 100) / contentLength).toInt()
-                            updateNotification(fileName, progress)
-
-                            bytes = input.read(buffer)
-                        }
-                    }
-                }
-
-                stopForeground(true)
-                stopSelf()
-=======
-
                 body.byteStream().use { input ->
                     FileOutputStream(file).use { output ->
                         copyStream(input, output, contentLength, fileName)
                     }
                 }
->>>>>>> origin/main
             }
         } catch (e: IOException) {
             Log.e(TAG, "Download failed", e)
