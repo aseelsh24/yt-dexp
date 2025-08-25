@@ -28,7 +28,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class DownloadService : Service() {
-
     private val serviceScope = CoroutineScope(Dispatchers.IO + Job())
 
     @Inject
@@ -42,9 +41,13 @@ class DownloadService : Service() {
         createNotificationChannel()
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-    val url = intent?.getStringExtra(EXTRA_URL) ?: return START_NOT_STICKY
-    val fileName = intent.getStringExtra(EXTRA_FILE_NAME) ?: "download"
+    override fun onStartCommand(
+        intent: Intent?,
+        flags: Int,
+        startId: Int,
+    ): Int {
+        val url = intent?.getStringExtra(EXTRA_URL) ?: return START_NOT_STICKY
+        val fileName = intent.getStringExtra(EXTRA_FILE_NAME) ?: "download"
 
         val notification = createNotification(fileName, 0)
         startForeground(NOTIFICATION_ID, notification)
@@ -65,27 +68,33 @@ class DownloadService : Service() {
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                NOTIFICATION_CHANNEL_ID,
-                "Downloads",
-                NotificationManager.IMPORTANCE_LOW,
-            ).apply {
-                description = "Used for showing active downloads"
-            }
+            val channel =
+                NotificationChannel(
+                    NOTIFICATION_CHANNEL_ID,
+                    "Downloads",
+                    NotificationManager.IMPORTANCE_LOW,
+                ).apply {
+                    description = "Used for showing active downloads"
+                }
             notificationManager.createNotificationChannel(channel)
         }
     }
 
-    private fun createNotification(fileName: String, progress: Int): Notification {
+    private fun createNotification(
+        fileName: String,
+        progress: Int,
+    ): Notification {
         val intent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(
-            this,
-            0,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE
-        )
+        val pendingIntent =
+            PendingIntent.getActivity(
+                this,
+                0,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE,
+            )
 
-        return NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+        return NotificationCompat
+            .Builder(this, NOTIFICATION_CHANNEL_ID)
             .setContentTitle("Downloading $fileName")
             .setSmallIcon(R.drawable.ic_download)
             .setProgress(MAX_PROGRESS, progress, false)
@@ -94,12 +103,17 @@ class DownloadService : Service() {
             .build()
     }
 
-    private suspend fun downloadFile(url: String, fileName: String) {
+    private suspend fun downloadFile(
+        url: String,
+        fileName: String,
+    ) {
         try {
-            val request = Request.Builder()
-                .url(url)
-                .header("Range", "bytes=0-")
-                .build()
+            val request =
+                Request
+                    .Builder()
+                    .url(url)
+                    .header("Range", "bytes=0-")
+                    .build()
 
             okHttpClient.newCall(request).execute().use { response ->
                 if (!response.isSuccessful) throw IOException("Unexpected code $response")
@@ -125,7 +139,7 @@ class DownloadService : Service() {
         input: InputStream,
         output: FileOutputStream,
         contentLength: Long,
-        fileName: String
+        fileName: String,
     ) {
         var downloadedBytes = 0L
         val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
@@ -142,7 +156,10 @@ class DownloadService : Service() {
         }
     }
 
-    private fun updateNotification(fileName: String, progress: Int) {
+    private fun updateNotification(
+        fileName: String,
+        progress: Int,
+    ) {
         notificationManager.notify(NOTIFICATION_ID, createNotification(fileName, progress))
     }
 

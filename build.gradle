@@ -24,7 +24,6 @@ allprojects {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url "https://raw.githubusercontent.com/tanersener/mobile-ffmpeg/master/maven" }
     }
 }
 
