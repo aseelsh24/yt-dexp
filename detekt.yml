@@ -1,3 +1,4 @@
-FunctionNaming:
-  active: true
-  ignoreAnnotated: ['Composable']
+style:
+  FunctionNaming:
+    active: true
+    ignoreAnnotated: ['Composable']
