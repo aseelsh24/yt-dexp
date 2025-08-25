@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="8.0">
+    <file name="src/main/java/com/aseelsh/ytdexp/data/db/AppDatabase.kt">
+        <error line="9" column="25" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/data/db/DownloadDao.kt">
+        <error line="3" column="1" severity="error" message="Wildcard import" source="standard:no-wildcard-imports" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/data/db/DownloadEntity.kt">
+        <error line="18" column="33" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/data/downloader/FileDownloader.kt">
+        <error line="6" column="1" severity="error" message="Unused import" source="standard:no-unused-imports" />
+        <error line="9" column="1" severity="error" message="Unused import" source="standard:no-unused-imports" />
+        <error line="21" column="43" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="27" column="34" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="42" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="46" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="52" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="61" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/data/extractor/VideoExtractor.kt">
+        <error line="3" column="1" severity="error" message="Unused import" source="standard:no-unused-imports" />
+        <error line="4" column="1" severity="error" message="Unused import" source="standard:no-unused-imports" />
+        <error line="5" column="1" severity="error" message="Unused import" source="standard:no-unused-imports" />
+        <error line="12" column="1" severity="error" message="Unused import" source="standard:no-unused-imports" />
+        <error line="16" column="43" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="34" column="122" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="53" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="81" column="59" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="82" column="18" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="89" column="30" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="101" column="35" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="108" column="22" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/data/media/MediaProcessor.kt">
+        <error line="3" column="1" severity="error" message="Imports must be ordered in lexicographic order without any empty lines in-between with &quot;java&quot;, &quot;javax&quot;, &quot;kotlin&quot; and aliases in the end" source="standard:import-ordering" />
+        <error line="6" column="1" severity="error" message="Unused import" source="standard:no-unused-imports" />
+        <error line="16" column="53" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="21" column="34" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="40" column="24" severity="error" message="Unnecessary long whitespace" source="standard:no-multi-spaces" />
+        <error line="42" column="32" severity="error" message="Unnecessary long whitespace" source="standard:no-multi-spaces" />
+        <error line="43" column="33" severity="error" message="Unnecessary long whitespace" source="standard:no-multi-spaces" />
+        <error line="44" column="27" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="63" column="34" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="81" column="40" severity="error" message="Unnecessary long whitespace" source="standard:no-multi-spaces" />
+        <error line="82" column="36" severity="error" message="Unnecessary long whitespace" source="standard:no-multi-spaces" />
+        <error line="84" column="31" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="87" column="27" severity="error" message="Argument should be on a separate line (unless all arguments can fit a single line)" source="standard:argument-list-wrapping" />
+        <error line="88" column="29" severity="error" message="Argument should be on a separate line (unless all arguments can fit a single line)" source="standard:argument-list-wrapping" />
+        <error line="89" column="29" severity="error" message="Argument should be on a separate line (unless all arguments can fit a single line)" source="standard:argument-list-wrapping" />
+        <error line="89" column="40" severity="error" message="Unnecessary long whitespace" source="standard:no-multi-spaces" />
+        <error line="90" column="31" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/data/repository/DownloadRepositoryImpl.kt">
+        <error line="10" column="1" severity="error" message="Wildcard import" source="standard:no-wildcard-imports" />
+        <error line="19" column="47" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="26" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="35" column="53" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="37" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="39" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="49" column="65" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="57" column="70" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="93" column="52" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/di/AppModule.kt">
+        <error line="22" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="26" column="45" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="35" column="29" severity="error" message="Missing newline after &quot;(&quot;" source="standard:wrapping" />
+        <error line="37" column="13" severity="error" message="Missing newline before &quot;)&quot;" source="standard:wrapping" />
+        <error line="47" column="45" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="52" column="24" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="63" column="37" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/domain/model/DownloadItem.kt">
+        <error line="11" column="56" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="19" column="11" severity="error" message="Missing trailing comma before &quot;}&quot;" source="standard:trailing-comma-on-declaration-site" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt">
+        <error line="108" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="112" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="115" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="120" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/ui/MainActivity.kt">
+        <error line="21" column="65" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/ui/MainScreen.kt">
+        <error line="33" column="74" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="35" column="10" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="40" column="40" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="47" column="55" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/ui/MainViewModel.kt">
+        <error line="9" column="55" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/ui/screens/BrowserScreen.kt">
+        <error line="4" column="1" severity="error" message="Unused import" source="standard:no-unused-imports" />
+        <error line="5" column="1" severity="error" message="Wildcard import" source="standard:no-wildcard-imports" />
+        <error line="6" column="1" severity="error" message="Wildcard import" source="standard:no-wildcard-imports" />
+        <error line="7" column="1" severity="error" message="Wildcard import" source="standard:no-wildcard-imports" />
+        <error line="11" column="1" severity="error" message="Unused import" source="standard:no-unused-imports" />
+        <error line="22" column="34" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="26" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="29" column="59" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="41" column="43" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="43" column="48" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="48" column="14" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="54" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="64" column="18" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="86" column="14" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="96" column="46" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="104" column="38" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/ui/screens/DownloadsScreen.kt">
+        <error line="3" column="1" severity="error" message="Wildcard import" source="standard:no-wildcard-imports" />
+        <error line="7" column="1" severity="error" message="Wildcard import" source="standard:no-wildcard-imports" />
+        <error line="8" column="1" severity="error" message="Wildcard import" source="standard:no-wildcard-imports" />
+        <error line="9" column="1" severity="error" message="Wildcard import" source="standard:no-wildcard-imports" />
+        <error line="20" column="36" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="24" column="46" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="30" column="36" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="41" column="31" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="46" column="38" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="51" column="32" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="55" column="61" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="57" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="59" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="62" column="51" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="64" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="66" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="70" column="63" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="74" column="64" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="76" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="80" column="83" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="81" column="33" severity="error" message="Missing { ... }" source="standard:multiline-if-else" />
+        <error line="81" column="52" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="82" column="33" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="84" column="64" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="87" column="1" severity="error" message="Trailing space(s)" source="standard:no-trailing-spaces" />
+        <error line="91" column="58" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/ui/theme/Theme.kt">
+        <error line="6" column="1" severity="error" message="Wildcard import" source="standard:no-wildcard-imports" />
+        <error line="17" column="22" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="23" column="22" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="30" column="36" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-declaration-site" />
+        <error line="52" column="26" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+    </file>
+    <file name="src/main/java/com/aseelsh/ytdexp/ui/theme/Type.kt">
+        <error line="15" column="31" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="22" column="29" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="29" column="31" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+        <error line="30" column="6" severity="error" message="Missing trailing comma before &quot;)&quot;" source="standard:trailing-comma-on-call-site" />
+    </file>
+</checkstyle>
