@@ -46,9 +46,10 @@ fun BrowserScreen(
         OutlinedTextField(
             value = url,
             onValueChange = onUrlChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
             label = { Text("Enter URL") },
             trailingIcon = {
                 if (isUrlValid) {
@@ -82,7 +83,7 @@ fun BrowserScreen(
         FormatChooserDialog(
             onDismissRequest = { showFormatDialog = false },
             onDownloadClick = onDownloadClick,
-            url = currentVideoUrl
+            url = currentVideoUrl,
         )
     }
 }
@@ -91,7 +92,7 @@ fun BrowserScreen(
 private fun FormatChooserDialog(
     onDismissRequest: () -> Unit,
     onDownloadClick: (String, String) -> Unit,
-    url: String
+    url: String,
 ) {
     AlertDialog(
         onDismissRequest = onDismissRequest,
@@ -124,9 +125,10 @@ private fun FormatButton(
         onClick = {
             onDownloadClick(url, format)
         },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = 4.dp),
     ) {
         Text(text)
     }

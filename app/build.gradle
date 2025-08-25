@@ -4,7 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'org.jlleitschuh.gradle.ktlint' version '13.1.0'
-    id 'io.gitlab.arturbosch.detekt' version '1.23.8'
+    id 'io.gitlab.arturbosch.detekt' version '1.23.5'
 }
 
 android {
@@ -101,8 +101,8 @@ dependencies {
     implementation 'androidx.webkit:webkit:1.7.0'
     implementation 'com.google.accompanist:accompanist-webview:0.32.0'
 
-    // FFmpeg for audio extraction
-    implementation 'com.arthenica:mobile-ffmpeg-full:4.4.LTS'
+    // FFmpeg for audio extraction (migrated from mobile-ffmpeg)
+    implementation 'com.arthenica:ffmpeg-kit-full:6.0-2'
 
     // Media handling (using Media3 instead of ExoPlayer)
     implementation 'androidx.media3:media3-exoplayer:1.1.1'
