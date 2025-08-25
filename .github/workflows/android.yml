@@ -40,13 +40,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # Clean before build
-      - name: Clean project
-        run: ./gradlew clean
-
       # Code Quality Checks
       - name: Run ktlint (code style)
-        run: ./gradlew ktlintCheck || echo "ktlint not configured"
+        run: ./gradlew lintKotlin || echo "ktlint not configured"
 
       - name: Run Android Lint
         run: ./gradlew lintDebug || echo "lint not available"
@@ -70,7 +66,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -97,10 +93,6 @@ jobs:
           key: ${{ runner.os }}-gradle-deps-${{ hashFiles('**/*.gradle*', '**/gradle.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-deps-
-
-      # Clean before release build
-      - name: Clean project
-        run: ./gradlew clean
 
       # Decode Keystore
       - name: Decode Keystore
