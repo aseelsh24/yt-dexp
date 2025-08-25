@@ -1,14 +1,15 @@
 package com.aseelsh.ytdexp.data.repository
 
+import android.util.Log
 import com.aseelsh.ytdexp.data.db.DownloadDao
 import com.aseelsh.ytdexp.data.db.DownloadEntity
 import com.aseelsh.ytdexp.data.extractor.VideoExtractor
-import com.aseelsh.ytdexp.data.media.MediaProcessor
 import com.aseelsh.ytdexp.domain.model.DownloadItem
 import com.aseelsh.ytdexp.domain.model.DownloadStatus
 import com.aseelsh.ytdexp.domain.repository.DownloadRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.io.IOException
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,7 +18,6 @@ import javax.inject.Singleton
 class DownloadRepositoryImpl @Inject constructor(
     private val downloadDao: DownloadDao,
     private val videoExtractor: VideoExtractor,
-    private val mediaProcessor: MediaProcessor,
 ) : DownloadRepository {
 
     override suspend fun addDownload(url: String, format: String): Result<DownloadItem> {
@@ -39,7 +39,8 @@ class DownloadRepositoryImpl @Inject constructor(
             downloadDao.insertDownload(entity)
 
             Result.success(entity.toDownloadItem())
-        } catch (e: Exception) {
+        } catch (e: IOException) {
+            Log.e(TAG, "Failed to add download", e)
             Result.failure(e)
         }
     }
@@ -93,5 +94,9 @@ class DownloadRepositoryImpl @Inject constructor(
             progress = progress,
             status = DownloadStatus.valueOf(status),
         )
+    }
+
+    companion object {
+        private const val TAG = "DownloadRepositoryImpl"
     }
 }

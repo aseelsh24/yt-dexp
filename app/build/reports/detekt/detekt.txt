@@ -1,0 +1,58 @@
+LongMethod - 61/60 - [MainScreen] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/MainScreen.kt:18:5 - Signature=MainScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun MainScreen( viewModel: MainViewModel = hiltViewModel() )
+LongMethod - 61/60 - [BrowserScreen] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/screens/BrowserScreen.kt:32:5 - Signature=BrowserScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun BrowserScreen( url: String, onUrlChange: (String) -> Unit, onDownloadClick: (String, String) -> Unit, isUrlValid: Boolean, modifier: Modifier = Modifier, )
+NestedBlockDepth - 5/4 - [downloadFile] at /app/app/src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt:78:25 - Signature=DownloadService.kt$DownloadService$private suspend fun downloadFile(url: String, fileName: String)
+TooGenericExceptionCaught - [e] at /app/app/src/main/java/com/aseelsh/ytdexp/data/media/MediaProcessor.kt:57:18 - Signature=MediaProcessor.kt$MediaProcessor$e: Exception
+TooGenericExceptionCaught - [e] at /app/app/src/main/java/com/aseelsh/ytdexp/data/media/MediaProcessor.kt:112:18 - Signature=MediaProcessor.kt$MediaProcessor$e: Exception
+TooGenericExceptionThrown - [html] at /app/app/src/main/java/com/aseelsh/ytdexp/data/extractor/VideoExtractor.kt:45:47 - Signature=VideoExtractor.kt$VideoExtractor$throw Exception("Empty response")
+TooGenericExceptionThrown - [fetchYouTubePlayerResponse] at /app/app/src/main/java/com/aseelsh/ytdexp/data/extractor/VideoExtractor.kt:53:9 - Signature=VideoExtractor.kt$VideoExtractor$throw Exception("Could not find player response")
+TooGenericExceptionCaught - [e] at /app/app/src/main/java/com/aseelsh/ytdexp/data/downloader/FileDownloader.kt:61:18 - Signature=FileDownloader.kt$FileDownloader$e: Exception
+TooGenericExceptionCaught - [e] at /app/app/src/main/java/com/aseelsh/ytdexp/data/repository/DownloadRepositoryImpl.kt:42:18 - Signature=DownloadRepositoryImpl.kt$DownloadRepositoryImpl$e: Exception
+TooGenericExceptionCaught - [e] at /app/app/src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt:110:18 - Signature=DownloadService.kt$DownloadService$e: Exception
+PrintStackTrace - [downloadFile] at /app/app/src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt:111:13 - Signature=DownloadService.kt$DownloadService$e
+FunctionNaming - [MainScreen] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/MainScreen.kt:18:5 - Signature=MainScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun MainScreen( viewModel: MainViewModel = hiltViewModel() )
+FunctionNaming - [BrowserScreen] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/MainScreen.kt:88:5 - Signature=MainScreen.kt$@Composable fun BrowserScreen()
+FunctionNaming - [DownloadsScreen] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/MainScreen.kt:93:5 - Signature=MainScreen.kt$@Composable fun DownloadsScreen()
+FunctionNaming - [SettingsScreen] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/MainScreen.kt:98:5 - Signature=MainScreen.kt$@Composable fun SettingsScreen()
+FunctionNaming - [BrowserScreen] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/screens/BrowserScreen.kt:32:5 - Signature=BrowserScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun BrowserScreen( url: String, onUrlChange: (String) -> Unit, onDownloadClick: (String, String) -> Unit, isUrlValid: Boolean, modifier: Modifier = Modifier, )
+FunctionNaming - [FormatButton] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/screens/BrowserScreen.kt:107:13 - Signature=BrowserScreen.kt$@Composable private fun FormatButton( text: String, format: String, url: String, onDownloadClick: (String, String) -> Unit, )
+FunctionNaming - [DownloadsScreen] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/screens/DownloadsScreen.kt:17:5 - Signature=DownloadsScreen.kt$@Composable fun DownloadsScreen( downloads: List<DownloadItem> = emptyList(), onPauseResume: (String) -> Unit = {}, onCancel: (String) -> Unit = {} )
+FunctionNaming - [DownloadItemCard] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/screens/DownloadsScreen.kt:38:5 - Signature=DownloadsScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun DownloadItemCard( downloadItem: DownloadItem, onPauseResume: (String) -> Unit, onCancel: (String) -> Unit )
+FunctionNaming - [YTDexpTheme] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/theme/Theme.kt:27:5 - Signature=Theme.kt$@Composable fun YTDexpTheme( darkTheme: Boolean = isSystemInDarkTheme(), dynamicColor: Boolean = true, content: @Composable () -> Unit )
+VariableNaming - [NOTIFICATION_CHANNEL_ID] at /app/app/src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt:18:17 - Signature=DownloadService.kt$DownloadService$private val NOTIFICATION_CHANNEL_ID = "download_channel"
+VariableNaming - [NOTIFICATION_ID] at /app/app/src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt:19:17 - Signature=DownloadService.kt$DownloadService$private val NOTIFICATION_ID = 1
+VariableNaming - [BUFFER_SIZE] at /app/app/src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt:20:17 - Signature=DownloadService.kt$DownloadService$private val BUFFER_SIZE = 8192
+WildcardImport - [MainScreen.kt] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/MainScreen.kt:3:1 - Signature=MainScreen.kt$import androidx.compose.foundation.layout.*
+WildcardImport - [MainScreen.kt] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/MainScreen.kt:4:1 - Signature=MainScreen.kt$import androidx.compose.material3.*
+WildcardImport - [MainScreen.kt] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/MainScreen.kt:5:1 - Signature=MainScreen.kt$import androidx.compose.runtime.*
+WildcardImport - [MainScreen.kt] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/MainScreen.kt:8:1 - Signature=MainScreen.kt$import androidx.compose.material.icons.filled.*
+ForbiddenComment - [BrowserScreen] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/MainScreen.kt:89:5 - Signature=MainScreen.kt$// TODO: Implement browser screen with WebView
+ForbiddenComment - [DownloadsScreen] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/MainScreen.kt:94:5 - Signature=MainScreen.kt$// TODO: Implement downloads screen
+ForbiddenComment - [SettingsScreen] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/MainScreen.kt:99:5 - Signature=MainScreen.kt$// TODO: Implement settings screen
+WildcardImport - [DownloadsScreen.kt] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/screens/DownloadsScreen.kt:3:1 - Signature=DownloadsScreen.kt$import androidx.compose.foundation.layout.*
+WildcardImport - [DownloadsScreen.kt] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/screens/DownloadsScreen.kt:7:1 - Signature=DownloadsScreen.kt$import androidx.compose.material.icons.filled.*
+WildcardImport - [DownloadsScreen.kt] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/screens/DownloadsScreen.kt:8:1 - Signature=DownloadsScreen.kt$import androidx.compose.material3.*
+WildcardImport - [DownloadsScreen.kt] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/screens/DownloadsScreen.kt:9:1 - Signature=DownloadsScreen.kt$import androidx.compose.runtime.*
+MagicNumber - [Purple80] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/theme/Color.kt:5:22 - Signature=Color.kt$0xFFD0BCFF
+MagicNumber - [PurpleGrey80] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/theme/Color.kt:6:26 - Signature=Color.kt$0xFFCCC2DC
+MagicNumber - [Pink80] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/theme/Color.kt:7:20 - Signature=Color.kt$0xFFEFB8C8
+MagicNumber - [Purple40] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/theme/Color.kt:9:22 - Signature=Color.kt$0xFF6650a4
+MagicNumber - [PurpleGrey40] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/theme/Color.kt:10:26 - Signature=Color.kt$0xFF625b71
+MagicNumber - [Pink40] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/theme/Color.kt:11:20 - Signature=Color.kt$0xFF7D5260
+WildcardImport - [Theme.kt] at /app/app/src/main/java/com/aseelsh/ytdexp/ui/theme/Theme.kt:6:1 - Signature=Theme.kt$import androidx.compose.material3.*
+MagicNumber - [progress] at /app/app/src/main/java/com/aseelsh/ytdexp/data/media/MediaProcessor.kt:31:58 - Signature=MediaProcessor.kt$MediaProcessor$100
+MagicNumber - [progress] at /app/app/src/main/java/com/aseelsh/ytdexp/data/media/MediaProcessor.kt:76:58 - Signature=MediaProcessor.kt$MediaProcessor$100
+MaxLineLength - [pattern] at /app/app/src/main/java/com/aseelsh/ytdexp/data/extractor/VideoExtractor.kt:30:1 - Signature=VideoExtractor.kt$VideoExtractor$"(?<=watch\\?v=|/videos/|embed/|youtu.be/|/v/|/e/|watch\\?v%3D|watch\\?feature=player_embedded&v=)[^#&?\\n]*"
+MagicNumber - [progress] at /app/app/src/main/java/com/aseelsh/ytdexp/data/downloader/FileDownloader.kt:54:59 - Signature=FileDownloader.kt$FileDownloader$100
+UnusedPrivateProperty - [activeDownloads] at /app/app/src/main/java/com/aseelsh/ytdexp/data/downloader/FileDownloader.kt:21:17 - Signature=FileDownloader.kt$FileDownloader$private val activeDownloads = mutableMapOf<String, MutableStateFlow<Int>>()
+UnusedPrivateProperty - [mediaProcessor] at /app/app/src/main/java/com/aseelsh/ytdexp/data/repository/DownloadRepositoryImpl.kt:20:17 - Signature=DownloadRepositoryImpl.kt$DownloadRepositoryImpl$private val mediaProcessor: MediaProcessor
+WildcardImport - [DownloadService.kt] at /app/app/src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt:3:1 - Signature=DownloadService.kt$import android.app.*
+WildcardImport - [DownloadService.kt] at /app/app/src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt:5:1 - Signature=DownloadService.kt$import android.os.*
+WildcardImport - [DownloadService.kt] at /app/app/src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt:10:1 - Signature=DownloadService.kt$import kotlinx.coroutines.*
+WildcardImport - [DownloadService.kt] at /app/app/src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt:11:1 - Signature=DownloadService.kt$import okhttp3.*
+WildcardImport - [DownloadService.kt] at /app/app/src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt:12:1 - Signature=DownloadService.kt$import java.io.*
+MagicNumber - [BUFFER_SIZE] at /app/app/src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt:20:31 - Signature=DownloadService.kt$DownloadService$8192
+MagicNumber - [createNotification] at /app/app/src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt:72:26 - Signature=DownloadService.kt$DownloadService$100
+MagicNumber - [progress] at /app/app/src/main/java/com/aseelsh/ytdexp/service/DownloadService.kt:99:64 - Signature=DownloadService.kt$DownloadService$100
+MagicNumber - [provideOkHttpClient] at /app/app/src/main/java/com/aseelsh/ytdexp/di/AppModule.kt:38:29 - Signature=AppModule.kt$AppModule$30
+MagicNumber - [provideOkHttpClient] at /app/app/src/main/java/com/aseelsh/ytdexp/di/AppModule.kt:39:26 - Signature=AppModule.kt$AppModule$30
+MagicNumber - [provideOkHttpClient] at /app/app/src/main/java/com/aseelsh/ytdexp/di/AppModule.kt:40:27 - Signature=AppModule.kt$AppModule$30

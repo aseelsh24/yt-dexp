@@ -43,7 +43,6 @@ fun BrowserScreen(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        // URL Input Field
         OutlinedTextField(
             value = url,
             onValueChange = onUrlChange,
@@ -63,10 +62,8 @@ fun BrowserScreen(
             },
         )
 
-        // WebView
         if (url.isNotEmpty()) {
             val webViewState = rememberWebViewState(url = url)
-
             WebView(
                 state = webViewState,
                 modifier = Modifier.weight(1f),
@@ -82,25 +79,38 @@ fun BrowserScreen(
     }
 
     if (showFormatDialog) {
-        AlertDialog(
+        FormatChooserDialog(
             onDismissRequest = { showFormatDialog = false },
-            title = { Text("Choose Format") },
-            text = {
-                Column {
-                    Text("Select download format:")
-                    Spacer(modifier = Modifier.height(8.dp))
-                    FormatButton("MP4 - Video", "mp4", currentVideoUrl, onDownloadClick)
-                    FormatButton("MP3 - Audio", "mp3", currentVideoUrl, onDownloadClick)
-                    FormatButton("WEBM - Video", "webm", currentVideoUrl, onDownloadClick)
-                }
-            },
-            confirmButton = {
-                TextButton(onClick = { showFormatDialog = false }) {
-                    Text("Cancel")
-                }
-            },
+            onDownloadClick = onDownloadClick,
+            url = currentVideoUrl
         )
     }
+}
+
+@Composable
+private fun FormatChooserDialog(
+    onDismissRequest: () -> Unit,
+    onDownloadClick: (String, String) -> Unit,
+    url: String
+) {
+    AlertDialog(
+        onDismissRequest = onDismissRequest,
+        title = { Text("Choose Format") },
+        text = {
+            Column {
+                Text("Select download format:")
+                Spacer(modifier = Modifier.height(8.dp))
+                FormatButton("MP4 - Video", "mp4", url, onDownloadClick)
+                FormatButton("MP3 - Audio", "mp3", url, onDownloadClick)
+                FormatButton("WEBM - Video", "webm", url, onDownloadClick)
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismissRequest) {
+                Text("Cancel")
+            }
+        },
+    )
 }
 
 @Composable
