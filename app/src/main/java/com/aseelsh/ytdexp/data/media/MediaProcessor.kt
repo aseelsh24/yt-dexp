@@ -1,12 +1,14 @@
 package com.aseelsh.ytdexp.data.media
 
 import android.content.Context
+import android.util.Log
 import com.arthenica.mobileffmpeg.Config
 import com.arthenica.mobileffmpeg.FFmpeg
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,27 +25,25 @@ class MediaProcessor @Inject constructor(
             val outputDir = context.getExternalFilesDir(null)
             val outputPath = File(outputDir, outputFileName).absolutePath
 
-            // Configure FFmpeg
             Config.enableStatisticsCallback { statistics ->
                 val timeInMilliseconds = statistics.time
                 val duration = statistics.duration
                 if (duration > 0) {
-                    val progress = (timeInMilliseconds * 100 / duration).toInt()
+                    val progress = (timeInMilliseconds * MAX_PROGRESS / duration).toInt()
                     onProgress(progress)
                 }
             }
 
-            // Extract audio command
             val command = arrayOf(
                 "-i",
                 inputPath,
-                "-vn", // Disable video
+                "-vn",
                 "-acodec",
-                "libmp3lame", // Use MP3 codec
+                "libmp3lame",
                 "-ab",
-                "192k", // Audio bitrate
+                "192k",
                 "-ar",
-                "44100", // Audio sample rate
+                "44100",
                 outputPath,
             )
 
@@ -52,9 +52,10 @@ class MediaProcessor @Inject constructor(
             if (result == Config.RETURN_CODE_SUCCESS) {
                 Result.success(File(outputPath))
             } else {
-                Result.failure(Exception("FFmpeg process failed with code $result"))
+                Result.failure(IOException("FFmpeg process failed with code $result"))
             }
-        } catch (e: Exception) {
+        } catch (e: IOException) {
+            Log.e(TAG, "Audio extraction failed", e)
             Result.failure(e)
         }
     }
@@ -73,30 +74,23 @@ class MediaProcessor @Inject constructor(
                 val timeInMilliseconds = statistics.time
                 val duration = statistics.duration
                 if (duration > 0) {
-                    val progress = (timeInMilliseconds * 100 / duration).toInt()
+                    val progress = (timeInMilliseconds * MAX_PROGRESS / duration).toInt()
                     onProgress(progress)
                 }
             }
 
             val command = when (format.lowercase()) {
                 "mp4" -> arrayOf(
-                    "-i",
-                    inputPath,
-                    "-c:v",
-                    "libx264", // Video codec
-                    "-c:a",
-                    "aac", // Audio codec
-                    "-strict",
-                    "experimental",
+                    "-i", inputPath,
+                    "-c:v", "libx264",
+                    "-c:a", "aac",
+                    "-strict", "experimental",
                     outputPath,
                 )
                 "webm" -> arrayOf(
-                    "-i",
-                    inputPath,
-                    "-c:v",
-                    "libvpx-vp9", // Video codec
-                    "-c:a",
-                    "libopus", // Audio codec
+                    "-i", inputPath,
+                    "-c:v", "libvpx-vp9",
+                    "-c:a", "libopus",
                     outputPath,
                 )
                 else -> throw IllegalArgumentException("Unsupported format: $format")
@@ -107,10 +101,16 @@ class MediaProcessor @Inject constructor(
             if (result == Config.RETURN_CODE_SUCCESS) {
                 Result.success(File(outputPath))
             } else {
-                Result.failure(Exception("FFmpeg process failed with code $result"))
+                Result.failure(IOException("FFmpeg process failed with code $result"))
             }
-        } catch (e: Exception) {
+        } catch (e: IOException) {
+            Log.e(TAG, "Video conversion failed", e)
             Result.failure(e)
         }
+    }
+
+    companion object {
+        private const val TAG = "MediaProcessor"
+        private const val MAX_PROGRESS = 100
     }
 }

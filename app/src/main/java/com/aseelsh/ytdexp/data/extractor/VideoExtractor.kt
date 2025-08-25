@@ -3,6 +3,7 @@ package com.aseelsh.ytdexp.data.extractor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
+import java.io.IOException
 import java.util.regex.Pattern
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,7 +15,6 @@ class VideoExtractor @Inject constructor(
     suspend fun extractVideoInfo(url: String): VideoInfo {
         return when {
             isYouTubeUrl(url) -> extractYouTubeVideo(url)
-            // Add more video platforms here
             else -> throw UnsupportedOperationException("Unsupported platform")
         }
     }
@@ -27,7 +27,8 @@ class VideoExtractor @Inject constructor(
 
     private fun extractYouTubeVideoId(url: String): String {
         val pattern = Pattern.compile(
-            "(?<=watch\\?v=|/videos/|embed/|youtu.be/|/v/|/e/|watch\\?v%3D|watch\\?feature=player_embedded&v=)[^#&?\\n]*",
+            "(?<=watch\\?v=|/videos/|embed/|youtu.be/|/v/|/e/|watch\\?v%3D|" +
+                "watch\\?feature=player_embedded&v=)[^#&?\\n]*",
         )
         val matcher = pattern.matcher(url)
         if (matcher.find()) {
@@ -42,7 +43,7 @@ class VideoExtractor @Inject constructor(
             .build()
 
         val response = okHttpClient.newCall(request).execute()
-        val html = response.body?.string() ?: throw Exception("Empty response")
+        val html = response.body?.string() ?: throw IOException("Empty response")
 
         val playerResponsePattern = Pattern.compile("ytInitialPlayerResponse\\s*=\\s*(\\{.+?\\})\\s*;")
         val matcher = playerResponsePattern.matcher(html)
@@ -50,7 +51,7 @@ class VideoExtractor @Inject constructor(
         if (matcher.find()) {
             return JSONObject(matcher.group(1))
         }
-        throw Exception("Could not find player response")
+        throw IOException("Could not find player response")
     }
 
     private fun parseYouTubePlayerResponse(playerResponse: JSONObject): VideoInfo {
@@ -65,7 +66,6 @@ class VideoExtractor @Inject constructor(
 
         val formats = mutableListOf<VideoFormat>()
 
-        // Add adaptive formats
         val adaptiveFormats = streamingData.getJSONArray("adaptiveFormats")
         for (i in 0 until adaptiveFormats.length()) {
             val format = adaptiveFormats.getJSONObject(i)
