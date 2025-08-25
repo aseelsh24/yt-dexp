@@ -82,11 +82,7 @@ class DownloadService : Service() {
             this,
             0,
             intent,
-<<<<<<< HEAD
-            PendingIntent.FLAG_IMMUTABLE,
-=======
             PendingIntent.FLAG_IMMUTABLE
->>>>>>> origin/main
         )
 
         return NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
